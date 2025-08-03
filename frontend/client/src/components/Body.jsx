@@ -145,10 +145,10 @@ const Body = () => {
 
                         </div>
                         <div className='text-xs sm:text-sm md:text-base lg:text:lg mt-3 space-y-2'>
-                            <li>Proven expertise in autoparts and garments logistics.</li>
-                            <li>Air transport for machinery and semiconductor parts.</li>
-                            <li>Custom solutions for urgent freight requirements.</li>
-                            <li>Fast, reliable air cargo support for businesses.</li>
+                                <li>Full Container Load (FCL) and Less than Container Load (LCL) services.</li>
+                                <li>Reliable connections with major international shipping lines.</li>
+                                <li>Cost-effective solutions for bulk and heavy cargo.</li>
+                                <li>End-to-end ocean freight management, including customs clearance.</li>
                         </div>
                     </div>
 
@@ -160,10 +160,11 @@ const Body = () => {
 
                         </div>
                         <div className='text-[12.5px] sm:text-sm md:text-base lg:text:lg mt-3 space-y-2'>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Expert in autoparts</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Machinery air freight</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Urgent freight help</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Reliable air cargo</li>
+                            <li className='whitespace-nowrap'>FCL & LCL shipping options</li>
+                            <li className='whitespace-nowrap'>Global ocean freight network</li>
+                            <li className='whitespace-nowrap'>Cost-effective bulk transport</li>
+                            <li className='whitespace-nowrap'>End-to-end customs clearance</li>
+
 
                         </div>
                     </div>
@@ -179,10 +180,12 @@ const Body = () => {
 
                         </div>
                         <div className='text-xs sm:text-sm md:text-base lg:text:lg mt-3 space-y-2'>
-                            <li>Proven expertise in autoparts and garments logistics.</li>
-                            <li>Air transport for machinery and semiconductor parts.</li>
-                            <li>Custom solutions for urgent freight requirements.</li>
-                            <li>Fast, reliable air cargo support for businesses.</li>
+                        <li>Domestic and cross-border trucking solutions.</li>
+                        <li>Specialized fleet for heavy machinery and oversized cargo.</li>
+                        <li>Flexible last-mile delivery options for businesses.</li>
+                        <li>Temperature-controlled transport for perishable goods.</li>
+
+
                         </div>
                     </div>
                     
@@ -195,10 +198,12 @@ const Body = () => {
                         </div>
                         
                         <div className='text-[12.5px] sm:text-sm md:text-base lg:text:lg mt-3 space-y-2'>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Expert in autoparts</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Machinery air freight</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Urgent freight help</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Reliable air cargo</li>
+                        <li className='whitespace-nowrap'>Cross-border trucking solutions</li>
+                        <li className='whitespace-nowrap'>Special fleet for heavy loads</li>
+                        <li className='whitespace-nowrap'>Flexible last-mile deliveries</li>
+                        <li className='whitespace-nowrap'>Cold chain transport support</li>
+
+
                         </div>
                     </div>
 
@@ -226,10 +231,13 @@ const Body = () => {
 
                         </div>
                         <div className='text-xs sm:text-sm md:text-base lg:text:lg mt-3 space-y-2'>
-                            <li>Proven expertise in autoparts and garments logistics.</li>
-                            <li>Air transport for machinery and semiconductor parts.</li>
-                            <li>Custom solutions for urgent freight requirements.</li>
-                            <li>Fast, reliable air cargo support for businesses.</li>
+                            <li>Integrated supply chain management solutions.</li>
+                            <li>Custom warehousing and inventory management services.</li>
+                            <li>Advanced tracking and real-time logistics visibility.</li>
+                            <li>Tailored logistics solutions to meet unique business needs.</li>
+
+
+
                         </div>
                     </div>
 
@@ -241,10 +249,11 @@ const Body = () => {
 
                         </div>
                         <div className='text-[12.5px] sm:text-sm md:text-base lg:text:lg mt-3 space-y-2'>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Expert in autoparts</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Machinery air freight</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Urgent freight help</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Reliable air cargo</li>
+                        <li className='whitespace-nowrap'>Integrated supply chain solutions</li>
+                    <li className='whitespace-nowrap'>Custom warehousing options</li>
+                    <li className='whitespace-nowrap'>Real-time tracking visibility</li>
+                    <li className='whitespace-nowrap'>Tailored logistics planning</li>
+
                         </div>
                     </div>
                 </div>
@@ -259,10 +268,11 @@ const Body = () => {
 
                         </div>
                         <div className='text-xs sm:text-sm md:text-base lg:text:lg mt-3 space-y-2 list-disc list-inside'>
-                            <li>Proven expertise in autoparts and garments logistics.</li>
-                            <li>Air transport for machinery and semiconductor parts.</li>
-                            <li>Custom solutions for urgent freight requirements.</li>
-                            <li>Fast, reliable air cargo support for businesses.</li>
+                            <li>Global air freight network ensuring timely deliveries.</li>
+                            <li>Specialized handling of high-value and sensitive cargo.</li>
+                            <li>Express solutions for urgent and time-critical shipments.</li>
+                            <li>Door-to-door air cargo services with full tracking support.</li>
+
                         </div>
                     </div>
 
@@ -273,10 +283,11 @@ const Body = () => {
                             <h1 style={{textShadow: "2.2px 2px 1.3px gray"}} className='text-2xl text-gray-800 font-medium sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl mt-4 sm:mt-6 tracking-wide'>Air Freight</h1>
                         </div>
                         <div className='text-[12.5px] sm:text-sm md:text-base lg:text:lg mt-3 space-y-2'>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Expert in autoparts</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Machinery air freight</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Urgent freight help</li>
-                            <li style={{textShadow: "2.2px 2px 1.3px gray"}} className='whitespace-nowrap'>Reliable air cargo</li>
+                        <li className='whitespace-nowrap'>Global air freight network</li>
+                        <li className='whitespace-nowrap'>High-value cargo handling</li>
+                        <li className='whitespace-nowrap'>Express time-critical shipments</li>
+                        <li className='whitespace-nowrap'>Door-to-door air solutions</li>
+
                         </div>
                     </div>
 

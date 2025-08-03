@@ -26,7 +26,7 @@ const AdminSignup = () => {
         const res = await axios.post(`${apiURL}/admin/register`, {FirstName,LastName,email,password},{ withCredentials:true});
         
         console.log(res.data)
-        navigate('/adminprofile')
+        navigate('/adminprofile', { state: { admin: res.data.admin } })
         
         // navigate('/profile')
         // navigate('/login');

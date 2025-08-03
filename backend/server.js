@@ -11,7 +11,7 @@ require('dotenv').config()
 
 const app=express()
 
-const FRONTEND_URL = process.env.FRONTEND_URL
+const FRONTEND_URL = process.env.LOCAL_URL  
 
 app.use(cors({
   origin : FRONTEND_URL,
