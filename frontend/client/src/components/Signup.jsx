@@ -28,7 +28,7 @@ const Signup = () => {
         // if (res.data.success){
             //     }
         // console.log(res.data)
-        navigate('/profile')
+        navigate('/profile', { state: { user: res.data.user } })
         
         // navigate('/profile')
         // navigate('/login');

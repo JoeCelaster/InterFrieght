@@ -15,6 +15,7 @@ import AdminSignup from './components/AdminSignup';
 import AdminProfile from './components/AdminProfile';
 import TruckLoader from './components/TruckLoader';
 import ManageShipments from './components/ManageShipments';
+import TrackShipment from './components/TrackShipment';
 
 const App = () => {
   const [appLoading, setAppLoading] = useState(true);
@@ -52,7 +53,7 @@ const App = () => {
         <Route path='/adminlogin' element={<AdminLogin />} />
         <Route path='/adminsignup' element={<AdminSignup />} />
         <Route path='/adminprofile' element={<AdminProfile />} />
-        <Route path='/tracker' element={<ManageShipments/>}></Route>
+        <Route path='/tracker' element={<TrackShipment/>}></Route>
       </Routes>
     </Router>
   );

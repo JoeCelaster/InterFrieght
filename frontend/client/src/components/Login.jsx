@@ -21,7 +21,7 @@ const Login = () => {
             // console.log(res.data)
             
             console.log(res.data)
-            navigate('/profile')
+            navigate('/profile', { state: { user: res.data.data } })
             
         } catch (error) {
             alert('Login Failed')

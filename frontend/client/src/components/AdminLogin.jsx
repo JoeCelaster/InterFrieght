@@ -20,7 +20,7 @@ const AdminLogin = () => {
         try {
             const res = await axios.post(`${apiURL}/admin/login`, {email,password},{ withCredentials:true})
             console.log(res)
-            navigate('/adminprofile')
+            navigate('/adminprofile', { state: { admin: res.data.data } })
         } catch (error) {
             console.log(error)
         }

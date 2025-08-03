@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const [scrolled, setScrolled] = useState(false)
   const [dropped,setDropped] = useState(false)
+  
 
   useEffect(() => {
     const handleScroll = () => {
