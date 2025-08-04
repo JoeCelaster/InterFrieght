@@ -16,21 +16,24 @@ const AdminSignup = () => {
     const [password,setPassword] = useState("")
     const [confirmPassword,setConfirmPassword] = useState("")
     const navigate = useNavigate()
+    const [Loading, setLoading] = useState(false)
     
     
     const handleSignup = async (e) => {
         const apiURL = import.meta.env.VITE_BACKEND_URL;
         console.log("Api:",apiURL)
         e.preventDefault();
+        setLoading(true)
         try {
         const res = await axios.post(`${apiURL}/admin/register`, {FirstName,LastName,email,password},{ withCredentials:true});
         
         console.log(res.data)
         navigate('/adminprofile', { state: { admin: res.data.admin } })
-        
+        setLoading(false)
         // navigate('/profile')
         // navigate('/login');
     } catch (error) {
+        setLoading(false)
         console.log(error)
         alert('Signup Failed');
     }
@@ -38,9 +41,12 @@ const AdminSignup = () => {
 
 
     return (
-        <div className='flex flex-col items-center font-serif justify-evenly min-h-screen bg-blue-500'>
-            <h1 className='text-3xl text-white font-serif tracking-normal' >Inter Freight Forwarders</h1>
-            <div className='z-10 space-y-7 border-solid border-2 p-5 border-black inline-block  bg-white  rounded-xl w-[450px] h-[800px] shadow-2xl'>
+        <div className='flex flex-col items-center font-serif justify-evenly min-h-screen bg-blue-500 px-4'>
+            <div className={`flex flex-col tracking-wider items-center font-serif text-white text-[25px] justify-evenly min-h-screen bg-blue-500 bg-opacity-85 px-4 ${Loading ? 'block' : 'hidden'} z-20 fixed top-0 left-0 right-0 bottom-0`}>
+                {Loading ? <h1>Loading...</h1> : null}
+            </div>
+            <h1 className='text-3xl text-white font-serif tracking-normal text-center'>Inter Freight Forwarders</h1>
+            <div className='w-full max-w-md z-10 space-y-7 border-solid border-2 p-6 border-black bg-white rounded-xl shadow-2xl'>
                 <div className='flex-row space-y-2 font-serif'>
                 <h2 className='text-center font-light text-3xl '>Sign up</h2>
                 <h2 className='text-[12px] font-thin text-center tracking-wider'>- Simplify your world. It starts here.</h2>
@@ -54,11 +60,10 @@ const AdminSignup = () => {
                     <Apple/>
                     </div>
                     <div className='space-y-7'>
-                        <div className='flex gap-6 justify-around'>
-                            <input required className= 'w-[191px] bg-gray-300 border-black border-solid border-2 p-3 rounded-[5px] placeholder-gray-500' onChange={(e) => setFirstName(e.target.value)} value={FirstName} type="text" name="" id="" placeholder='First Name'/>
-                            <input required className= 'w-[191px] bg-gray-300 border-black border-solid border-2 p-3 rounded-[5px] placeholder-gray-500' onChange={(e) => setLastName(e.target.value)} value={LastName} type="text" name="" id="" placeholder='Last Name'/><br />
+                    <div className='flex flex-col sm:flex-row gap-4 '>
+                            <input required className= 'w-full sm-w:1/2 bg-gray-300 border-black border-solid border-2 p-3 rounded-[5px] placeholder-gray-500' onChange={(e) => setFirstName(e.target.value)} value={FirstName} type="text" name="" id="" placeholder='First Name'/>
+                            <input required className= 'w-full sm-w:1/2 bg-gray-300 border-black border-solid border-2 p-3 rounded-[5px] placeholder-gray-500' onChange={(e) => setLastName(e.target.value)} value={LastName} type="text" name="" id="" placeholder='Last Name'/>
                         </div>
-                        
                         <input required className= 'w-full bg-gray-300 border-black border-solid border-2 p-3 rounded-[5px] placeholder-gray-500' onChange={(e) => setEmail(e.target.value)} value={email} type="text" name="" id="" placeholder='Email'/><br />
                         <input required className= 'w-full bg-gray-300 border-black border-solid border-2 p-3 rounded-[5px] placeholder-gray-500' onChange={(e) => setPassword(e.target.value)} value={password} type="password" name="" id="" placeholder='Password'/><br />
                         <div>
