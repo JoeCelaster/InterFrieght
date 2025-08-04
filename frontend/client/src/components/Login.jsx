@@ -11,10 +11,13 @@ const Login = () => {
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const navigate = useNavigate()
+    const [Loading,setLoading] = useState(false)
     const apiURL = import.meta.env.VITE_BACKEND_URL;
 
     const handleLogin = async (e) => {
         e.preventDefault()
+        setLoading(true)
+
         try {
             const res = await axios.post(`${apiURL}/users/login`,{email,password},{withCredentials: true})
             // localStorage.setItem("token",res.data.token)
@@ -22,14 +25,20 @@ const Login = () => {
             
             console.log(res.data)
             navigate('/profile', { state: { user: res.data.data } })
+            setLoading(false)
             
         } catch (error) {
+            // setLoading(false)
             alert('Login Failed')
         }
     }
 
     return (
         <div className='flex flex-col items-center font-serif justify-evenly min-h-screen bg-blue-500 px-4'>
+        <div className={`flex flex-col  tracking-wider items-center font-serif text-white text-[25px] justify-evenly min-h-screen bg-blue-500 bg-opacity-85 px-4 ${Loading ? 'block' : 'hidden'} z-10 fixed top-0 left-0 right-0 bottom-0`}>
+            {Loading ? <h1>Loading...</h1> : null}
+        </div>
+            
                     <div>
                     <h1 className='text-3xl text-white font-serif tracking-normal' >Inter Freight Forwarders</h1>
                     </div>
@@ -65,6 +74,8 @@ const Login = () => {
                                 </Link>
                             </div>
                     </div>
+
+                    
         
                     {/* <div className="w-1/2 h-screen relative bg-white">
           <div className="absolute inset-0 clip-left-border border-l-[10px] border-black"></div>

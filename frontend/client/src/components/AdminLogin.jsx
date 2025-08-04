@@ -14,33 +14,32 @@ const AdminLogin = () => {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const navigate = useNavigate()
+    const [Loading, setLoading] = useState(false)
 
     const handleLogin = async (e) => {
         e.preventDefault()
+        setLoading(true)
         try {
             const res = await axios.post(`${apiURL}/admin/login`, {email,password},{ withCredentials:true})
             console.log(res)
             navigate('/adminprofile', { state: { admin: res.data.data } })
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
             console.log(error)
         }
     }
 
     return (
-        <div>
-            <div className='flex flex-col items-center font-serif justify-evenly min-h-screen bg-blue-500'>
-                    <div className='flex gap-4 flex-col '>
-
-                        <div className='flex justify-center'>
-                            <h1 className='text-4xl text-white font-serif tracking-normal' >ADMIN</h1>
-                        </div>
-                        
-                        <div>
-                            <h1 className='text-3xl text-white font-serif tracking-normal' >Inter Freight Forwarders</h1>
-                        </div>
-                    </div>
-
-                    <div className='space-y-8 border-solid border-2 p-5 border-black inline-block  bg-white  rounded-xl w-[450px] h-[600px] shadow-2xl'>
+        <div className='flex flex-col items-center font-serif justify-evenly min-h-screen bg-blue-500 px-4'>
+            <div className={`flex flex-col  tracking-wider items-center font-serif text-white text-[25px] justify-evenly min-h-screen bg-blue-500 bg-opacity-85 px-4 ${Loading ? 'block' : 'hidden'} z-10 fixed top-0 left-0 right-0 bottom-0`}>
+                {Loading ? <h1>Loading...</h1> : null}
+            </div>
+            <div>
+                <h1 className='text-4xl text-white font-serif tracking-normal text-center mb-2'>ADMIN</h1>
+                <h1 className='text-3xl text-white font-serif tracking-normal text-center'>Inter Freight Forwarders</h1>
+            </div>
+            <div className='w-full max-w-md space-y-8 border-solid border-2 p-5 border-black inline-block bg-white rounded-xl shadow-2xl'>
                         <div className='flex-row space-y-2 font-serif'>
                         <h2 className='text-center font-light text-3xl '>Welcome Again !</h2>
                         </div>
@@ -81,7 +80,7 @@ const AdminLogin = () => {
         </div> */}
         
                 </div>
-        </div>
+        // </div>
     );
 }
 

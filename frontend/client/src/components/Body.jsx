@@ -5,15 +5,19 @@ import air from '../assets/flight.png'
 import logi from '../assets/logi.png'
 import land from '../assets/land.png'
 import sea from '../assets/sea.png'
-import gml from '../assets/gml.avif'
-import kgm from '../assets/kgm.png'
-import ship from '../assets/ship.jpg'
+// import gml from '../assets/gml.avif'
+import logo1 from '../assets/logoipsum-335.png'
+import logo2 from '../assets/logoipsum-343.png'
+import logo3 from '../assets/logoipsum-285.png'
+import logo4 from '../assets/logoipsum-388.png'
+
 import { Link } from 'react-router-dom';
 // import footer from '../assets/footer.png'
 import nightport from '../assets/capture-3.png'
 import TruckLoader from './TruckLoader';
 import Button from './Button';
 import { ArrowUpRight } from 'lucide-react';
+import Chatbot from './Chatbot';
 // import blueback from '../assets/blue-back.png'
 
 import heroship from '../assets/hero-ship.mp4'
@@ -25,7 +29,7 @@ import numberFour from '../assets/image-4.png'
 import { useState } from 'react';
 
 const Body = () => {
-    const logos = [gml,kgm,gml,kgm,gml,kgm,gml,kgm,gml]
+    const logos = [logo1,logo2,logo3,logo4,logo1,logo2,logo3,logo4,logo1,logo2,logo3,logo4]
     const [loading,setLoading] = useState(false)
     return (
         <div className='font-serif bg-white'>
@@ -117,6 +121,7 @@ const Body = () => {
                 </div>
 
             <div
+                id="about-section"
                 className="w-full bg-white"
                 style={{
                     backgroundImage: `
@@ -171,7 +176,7 @@ const Body = () => {
                 </div>
 
                 {/* Two */}
-                <div className='max-w-7xl mx-auto flex items-center justify-start sm:gap-8 md:gap-10 px-2 sm:px-8 z-10 lg:gap-20 flex-nowrap'>
+                <div className='max-w-7xl mx-auto flex items-center justify-center sm:gap-8 md:gap-10 px-2 sm:px-8 z-10 lg:gap-20 flex-nowrap'>
                     
                     {/* desktop */}
                     <div className='hidden sm:flex flex-col gap-5 p-10'>
@@ -216,7 +221,7 @@ const Body = () => {
                 </div>
                 
                 {/* Three */}
-                <div className='max-w-7xl mx-auto flex items-center justify-start sm:gap-8 md:gap-10 px-2 sm:px-8 z-10 lg:gap-20 flex-nowrap'>
+                <div className='max-w-7xl mx-auto flex items-center justify-center sm:gap-8 md:gap-10 px-2 sm:px-8 z-10 lg:gap-20 flex-nowrap'>
                     <div className='hidden sm:block w-[200px] sm:w-[100px] md:w-[200px] lg:w-[200px]'>
                         <img src={numberThree} alt="" className='w-full h-auto opacity-65'/>
                     </div>
@@ -259,7 +264,7 @@ const Body = () => {
                 </div>
 
                 {/* Four */}
-                <div className='max-w-7xl mx-auto flex items-center justify-start sm:gap-8 md:gap-10 px-2 sm:px-8 z-10 lg:gap-20 flex-nowrap'>
+                <div className='max-w-7xl mx-auto flex items-center justify-center sm:gap-8 md:gap-10 px-2 sm:px-8 z-10 lg:gap-20 flex-nowrap'>
                     
                     {/* desktop */}
                     <div className='hidden sm:flex flex-col gap-5 p-10'>
@@ -387,6 +392,7 @@ const Body = () => {
                 </div>
             </footer>
             </div>
+            <Chatbot/>
         </div>
         
     );

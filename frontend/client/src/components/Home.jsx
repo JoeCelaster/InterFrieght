@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const [scrolled, setScrolled] = useState(false)
   const [dropped,setDropped] = useState(false)
-  
-
+  // cosnt 
   useEffect(() => {
     const handleScroll = () => {
     const potential = window.innerHeight * 1
@@ -42,8 +41,7 @@ const Home = () => {
                 </div>
                 <ul className="list-none flex gap-8 text-white font-medium ml-auto">
                 <Link to = '/' className="relative inline-block cursor-pointer after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-400 after:transition-all after:duration-300 hover:after:w-full">Home</Link>
-                <Link to = '/about' className="relative inline-block cursor-pointer after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-400 after:transition-all after:duration-300 hover:after:w-full">About us</Link>
-                <Link to = '/whatwedo' className="relative inline-block cursor-pointer after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-400 after:transition-all after:duration-300 hover:after:w-full">What we do</Link>
+                <a href="#about-section" onClick={e => { e.preventDefault(); document.getElementById('about-section')?.scrollIntoView({ behavior: 'smooth' }); }} className="relative inline-block cursor-pointer after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-400 after:transition-all after:duration-300 hover:after:w-full">About us</a>
                 <Link to = '/login' className="relative inline-block cursor-pointer after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-400 after:transition-all after:duration-300 hover:after:w-full">Login</Link>
                 <Link to = '/adminlogin' className="relative inline-block cursor-pointer after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-400 after:transition-all after:duration-300 hover:after:w-full">Admin</Link>
                 </ul>

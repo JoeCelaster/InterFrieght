@@ -18,13 +18,16 @@ const Signup = () => {
     const navigate = useNavigate()
     const apiURL = import.meta.env.VITE_BACKEND_URL;
     console.log("Api:",apiURL)
+    const [Loading,setLoading] = useState(false)
 
     
     const handleSignup = async (e) => {
         e.preventDefault();
+        setLoading(true)
         try {
         const res = await axios.post(`${apiURL}/users/register`, {FirstName,LastName,email,password},{withCredentials: true});
         console.log(res.data);
+        setLoading(false)
         // if (res.data.success){
             //     }
         // console.log(res.data)
@@ -33,7 +36,7 @@ const Signup = () => {
         // navigate('/profile')
         // navigate('/login');
     } catch (error) {
-        
+        setLoading(false)
         alert(error.response?.data?.msg || 'Signup Failed');
     }
 };
@@ -41,6 +44,9 @@ const Signup = () => {
 
     return (
         <div className='flex flex-col items-center font-serif justify-evenly min-h-screen bg-blue-500 px-4'>
+            <div className={`flex flex-col  tracking-wider items-center font-serif text-white text-[25px] justify-evenly min-h-screen bg-blue-500 bg-opacity-85 px-4 ${Loading ? 'block' : 'hidden'} z-20 fixed top-0 left-0 right-0 bottom-0`}>
+            {Loading ? <h1>Loading...</h1> : null}
+        </div>
             <h1 className='text-3xl text-white font-serif tracking-normal ' >Inter Freight Forwarders</h1>
             <div className='w-full max-w-md z-10 space-y-7 border-solid border-2 p-6 border-black bg-white rounded-xl shadow-2xl'>
                 <div className='flex-row space-y-2 font-serif'>
