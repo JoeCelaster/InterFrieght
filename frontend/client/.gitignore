@@ -12,7 +12,13 @@ node_modules
 dist
 dist-ssr
 *.local
-
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.zip
+*.psd
+*.ai
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
