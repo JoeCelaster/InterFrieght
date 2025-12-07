@@ -83,7 +83,7 @@ const Body = () => {
 
                         <div className='flex flex-row'>
         
-                            <Link to='/signup'><Button/>    </Link>
+                            <Link to='/enquiry'><Button/></Link>
                         </div>                                                                                                                                                                                                                                                                              
                     </div>
 
@@ -95,7 +95,7 @@ const Body = () => {
                         <h3 className='text-lg text-center '>A Comprehensive logistics company, Carrying out the Freight Forwarding Business.</h3>
                         <div className='flex flex-row'>
                             <Link to='/signup'><button className="flex items-center gap-1 px-5 py-2 whitespace-nowrap text-white text-base tracking-wide uppercase font-medium rounded-md transition duration-500 bg-[#008dff] shadow-[0_0_25px_#008cff] hover:shadow-[0_0_5px_#00ffff,0_0_25px_#00c8ff,0_0_50px_#008cff,0_0_100px_#008cff]">
-      Ship Now
+      Enquire Now
       <ArrowUpRight className="w-6 h-6 font-light" />
     </button></Link>
                         </div>  
@@ -103,22 +103,7 @@ const Body = () => {
                 </div>
             {/* <img src={hero} alt="" /> */}
 
-                <div  className="overflow-hidden py-8 ">
-                    <h2 className="text-lg  text-center sm:text-sm md:text-1xl md:text-2xl tracking-wider font-light mb-4">Trusted by Top Clients</h2>
-                    <div className="overflow-hidden mx-auto w-[850px] flex justify-center items-center">
-                        <div className="whitespace-nowrap animate-slide flex gap-10 px-4">
-                        {logos.map((logo, i) => (
-                            <img
-                                key={i}
-                                src={logo}
-                                alt="Client Logo"
-                                className="h-6 sm:h-10 md:h-10 lg:h-16 w-auto max-w-[170px] object-contain inline-block"
-                                />
-
-                        ))}
-                        </div>
-                    </div>
-                </div>
+                
 
             <div
                 id="about-section"

@@ -54,7 +54,7 @@ const Home = () => {
           <div className="font-serif font-thin text-xl text-white">
             <h2>Inter Freight Forwarders</h2>
           </div>
-          <div>
+          <div>cd
             <button className='text-white text-2xl tracking-wide' onClick={handleDropDown}>≣</button>
           </div>
         </div> 
@@ -62,7 +62,6 @@ const Home = () => {
         <div>
           <ul className={`font-serif list-none flex flex-col justify-start transition-all duration-200 ease-in-out gap-3 text-white font-medium text-lg ml-auto ${dropped ? "opacity-100 max-h-96" : "gap-6 opacity-0 max-h-0 overflow-hidden"} `}>
                 <Link to = '/' className="hover:text-gray-200 cursor-pointer">Home</Link><hr className='border-none bg-neutral-400 opacity-45 h-[0.5px]'/>
-                <Link to = '/about' className="hover:text-gray-200 cursor-pointer">About us</Link><hr className='border-none bg-neutral-400 opacity-45 h-[0.5px]'/>
                 <Link to = '/whatwedo' className="hover:text-gray-200 cursor-pointer">What we do</Link><hr className='border-none bg-neutral-400 opacity-45 h-[0.5px]'/>
                 <Link to = '/login' className="hover:text-gray-200 cursor-pointer">Login</Link><hr className='border-none bg-neutral-400 opacity-45 h-[0.5px]'/>
                 <Link to = '/signup' className="hover:text-gray-200 cursor-pointer">Signup</Link><hr className='border-none bg-neutral-400 opacity-45 h-[0.5px]'/>

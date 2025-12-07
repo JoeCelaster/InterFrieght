@@ -16,6 +16,7 @@ import AdminProfile from './components/AdminProfile';
 import TruckLoader from './components/TruckLoader';
 import ManageShipments from './components/ManageShipments';
 import TrackShipment from './components/TrackShipment';
+import Enquiry from './components/Equiry'
 
 const App = () => {
   const [appLoading, setAppLoading] = useState(true);
@@ -42,11 +43,12 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />} />
+        {/* <Route path='/about' element={<About />} /> */}
         <Route path='/whatwedo' element={<Body />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/enquiry' element={<Enquiry />} />
         <Route path='/account' element={<Account />} />
         <Route path='/shipment' element={<Shipment />} />
         <Route path='/admin' element={<Admin />} />

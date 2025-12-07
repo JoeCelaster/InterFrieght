@@ -7,7 +7,7 @@ const Button = () => {
   return (
     <StyledWrapper>
       <button className="shadow__btn flex gap-1 text-base ">
-        Start your Shipment
+        Enquire Now
         <ArrowUpRight className="w-8 h-6 text-gray-200"/> 
       </button>
     </StyledWrapper>
