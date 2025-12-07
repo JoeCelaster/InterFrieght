@@ -1,49 +1,151 @@
+require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose')
-const cors = require('cors')
+const mongoose = require('mongoose');
+const cors = require('cors');
+const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const userRoutes = require('./routes/UserRoutes')
-const trackRoutes = require('./routes/TrackRoutes')
-const shipmentRoutes = require('./routes/ShipmentRoutes')
-const adminRoutes = require('./routes/AdminRoutes')
-const axios = require('axios')
+const axios = require('axios');
+const { MongoClient } = require('mongodb'); // <-- added
 
-require('dotenv').config()
+const userRoutes = require('./routes/UserRoutes');
+const trackRoutes = require('./routes/TrackRoutes');
+const shipmentRoutes = require('./routes/ShipmentRoutes');
+const adminRoutes = require('./routes/AdminRoutes');
 
-const app=express()
+const app = express();
 
-const FRONTEND_URL = process.env.FRONTEND_URL  
-// const Router = process.env.OPENR_KEY
+const FRONTEND_URL = process.env.FRONTEND_URL;
+const MONGO_URI = process.env.MONGO_URI;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin : FRONTEND_URL,
+  origin: function(origin, callback) {
+    // Allow requests with or without trailing slash
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'http://localhost:5173/'
+    ];
+    if (!origin || allowedOrigins.includes(origin) || origin.startsWith('http://localhost:5173')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
-}))
+}));
 
 app.use(express.json());
 app.use(cookieParser());
 
-
-const MONGO_URI = process.env.MONGO_URI
-const PORT = process.env.PORT
-
-
+// ------------ Mongoose (your existing connection) ------------
 mongoose.connect(MONGO_URI)
-.then(()=>console.log('Mongo Connected'))
-.catch(()=>console.log('Error connection'))
+  .then(() => console.log('Mongoose (auth) connected'))
+  .catch(err => console.error('Mongoose connection error:', err));
 
+// ------------ Native MongoClient for ports DB ------------
+const client = new MongoClient(MONGO_URI, {
+});
+let portsDB = null;
 
-app.use('/shipment',shipmentRoutes)
-app.use('/users',userRoutes)
-app.use('/',trackRoutes)
-app.use('/admin',adminRoutes)
+async function connectClientDB() {
+  try {
+    await client.connect();
+    console.log('MongoClient connected');
+    portsDB = client.db('ports'); // choose the database name
+    console.log('portsDB ready');
+  } catch (error) {
+    console.error('MongoClient connect error:', error);
+  }
+}
+connectClientDB(); // <-- make sure we call it
+
+// ------------ Routes ------------
+app.use('/shipment', shipmentRoutes);
+app.use('/users', userRoutes);
+app.use('/', trackRoutes);
+app.use('/admin', adminRoutes);
 
 app.get('/', (req, res) => {
-  const data = {
-    message: 'This is a GET endpoint example',
-  };
-  res.status(200).json(data);
+  res.status(200).json({ message: 'This is a GET endpoint example' });
 });
+
+// ------------ GET /ports (fixed) ------------
+app.get('/ports', async (req, res) => {
+  try {
+    if (!portsDB) {
+      // Not connected yet
+      return res.status(503).json({ success: false, error: 'Ports DB not ready. Try again shortly.' });
+    }
+
+    const collection = portsDB.collection('data'); // ensure this is the correct collection name
+    const data = await collection.find({}).toArray(); // await -> get actual data
+
+    res.status(200).json({
+      success: true,
+      count: data.length,
+      data
+    });
+  } catch (error) {
+    console.error('/ports error:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+
+app.post('/sendmail', async (req, res) => {
+  const {
+    co,
+    port,
+    commodity,
+    cargoUnit,
+    packages,
+    dimensions,
+    transport,
+    shipment,
+    contact,
+    email,
+    organization
+  } = req.body;
+
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "joecelaster2006@gmail.com",
+      pass: "rtxf gdlz lnrn zych"
+    }
+  });
+
+  let mailOptions = {
+    from: '"Website Enquiry" <joecelaster2006@gmail.com>',  // always your mail
+    to: "interfreight.forwarders@gmail.com",
+    replyTo: email,  // reply goes to user
+    subject: `New Enquiry from ${organization}`,
+    html: `
+      <h2>New Logistics Enquiry</h2>
+      <p><strong>Organization:</strong> ${organization}</p>
+      <p><strong>Contact Email:</strong> ${email}</p>
+      <p><strong>Contact Number:</strong> ${contact}</p>
+      <br/>
+
+      <h3>Shipment Details</h3>
+      <p><strong>Country of Origin:</strong> ${co}</p>
+      <p><strong>Port:</strong> ${port}</p>
+      <p><strong>Commodity:</strong> ${commodity}</p>
+      <p><strong>Cargo Unit:</strong> ${cargoUnit}</p>
+      <p><strong>No. of Packages:</strong> ${packages}</p>
+      <p><strong>Dimensions:</strong> ${dimensions}</p>
+      <p><strong>Transport Mode:</strong> ${transport}</p>
+      <p><strong>Shipment Type:</strong> ${shipment}</p>
+    `
+  };
+
+  transporter.sendMail(mailOptions, (err, result) => {
+    if (err) return res.status(500).send({ error: err });
+    return res.send({ success: true });
+  });
+});
+
 
 app.post("/chat", async (req, res) => {
   try {
@@ -70,7 +172,7 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-
+// ------------ Start server ------------
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
