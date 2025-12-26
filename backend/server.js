@@ -23,10 +23,10 @@ app.use(cors({
   origin: function(origin, callback) {
     // Allow requests with or without trailing slash
     const allowedOrigins = [
-      'http://localhost:5173',
-      'http://localhost:5173/'
+      'https://www.interfreight.in',
+      'https://www.interfreight.in/'
     ];
-    if (!origin || allowedOrigins.includes(origin) || origin.startsWith('http://localhost:5173')) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
