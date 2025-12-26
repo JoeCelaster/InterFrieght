@@ -23,6 +23,13 @@ const Enquire = () => {
     email: "",
     organization: "",
   });
+  
+  const [countryInput, setCountryInput] = useState("");
+  const [portInput, setPortInput] = useState("");
+  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+  const [showPortDropdown, setShowPortDropdown] = useState(false);
+  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [filteredPorts, setFilteredPorts] = useState([]);
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -49,28 +56,75 @@ const handleSubmit = async (e) => {
       .then((res) => {
         const names = res.data.map((c) => c.name.common).sort();
         setCountry(names);
+        setFilteredCountries(names);
       })
       .catch((err) => console.log(err));
   }, []);
 
+  const handleCountryInputChange = (e) => {
+    const input = e.target.value;
+    setCountryInput(input);
+    
+    if (input.length > 0) {
+      const filtered = country.filter(c => 
+        c.toLowerCase().includes(input.toLowerCase())
+      );
+      setFilteredCountries(filtered);
+      setShowCountryDropdown(true);
+    } else {
+      setFilteredCountries(country);
+      setShowCountryDropdown(false);
+    }
+  };
+
+  const handleCountrySelect = (selectedCountry) => {
+    setCountryInput(selectedCountry);
+    setEnquiry({ ...enquiry, co: selectedCountry });
+    setShowCountryDropdown(false);
+  };
+
+  const handlePortInputChange = (e) => {
+    const input = e.target.value;
+    setPortInput(input);
+    
+    if (input.length > 0) {
+      const filtered = ports.filter(port => 
+        port.CITY.toLowerCase().includes(input.toLowerCase()) ||
+        port.COUNTRY.toLowerCase().includes(input.toLowerCase())
+      );
+      setFilteredPorts(filtered);
+      setShowPortDropdown(true);
+    } else {
+      setFilteredPorts(ports);
+      setShowPortDropdown(false);
+    }
+  };
+
+  const handlePortSelect = (selectedPort) => {
+    const portDisplay = `${selectedPort.CITY} Port, ${selectedPort.COUNTRY}`;
+    setPortInput(portDisplay);
+    setEnquiry({ ...enquiry, port: selectedPort.CITY });
+    setShowPortDropdown(false);
+  };
+
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BACKEND_URL}/ports`)
-      .then((res) => setPorts(res.data.data))
+      .then((res) => {
+        setPorts(res.data.data);
+        setFilteredPorts(res.data.data);
+      })
       .catch((err) => console.log("Port fetch error", err));
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center  justify-center bg-blue-500 px-6 font-serif py-10">
-      <h1 className="text-4xl text-center text-white mb-8">
-        Inter Freight Forwarders
+    <div className="min-h-screen flex flex-col items-center justify-center bg-blue-500 px-4 font-serif py-10">
+      <h1 className="text-4xl text-center text-white">
+        Shipment Enquiry
       </h1>
+      <h2 className='text-[10.5px] text-gray-300 font-thin text-center tracking-wider mb-8'>- Fast response from our logistics team.</h2> 
 
-      <div className="w-full max-w-4xl border-2 border-black bg-white shadow-xl rounded-2xl p-10">
-        <h2 className="text-4xl text-center">
-            Shipment Enquiry
-        </h2> 
-        <h2 className='text-[12px] font-thin text-center tracking-wider mb-8'>- Fast response from our logistics team.</h2> 
+      <div className="w-full max-w-6xl border-2 border-black bg-white shadow-xl rounded-2xl p-3"> 
 
         {/* 2 Column layout */}
         <form onSubmit={handleSubmit}>
@@ -85,40 +139,70 @@ const handleSubmit = async (e) => {
                   Origin Details
                 </h3> <hr />
 
-                <div>
+                <div className="relative">
                   <label className="font-medium">Country of Origin <span className="text-red-500">*</span></label>
-                  <select
+                  <input
+                    type="text"
                     required
+                    value={countryInput}
+                    onChange={handleCountryInputChange}
+                    onFocus={() => countryInput.length > 0 && setShowCountryDropdown(true)}
+                    onBlur={() => setTimeout(() => setShowCountryDropdown(false), 200)}
                     className="w-full border p-3 rounded-lg mt-1"
-                    onChange={(e) =>
-                      setEnquiry({ ...enquiry, co: e.target.value })
-                    }
-                  >
-                    <option value="">Select Country</option>
-                    {country.map((name) => (
-                      <option key={name} value={name}>
-                        {name}
-                      </option>
-                    ))}
-                  </select>
+                    placeholder="Type to search country..."
+                  />
+                  {showCountryDropdown && filteredCountries.length > 0 && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                      {filteredCountries.map((name) => (
+                        <div
+                          key={name}
+                          className="p-2 hover:bg-gray-100 cursor-pointer"
+                          onMouseDown={() => handleCountrySelect(name)}
+                        >
+                          {name}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <input
+                    type="hidden"
+                    name="co"
+                    value={enquiry.co}
+                    required
+                  />
                 </div>
 
-                <div>
+                <div className="relative">
                   <label className="font-medium">Port of Discharge <span className="text-red-500">*</span></label>
-                  <select
+                  <input
+                    type="text"
                     required
+                    value={portInput}
+                    onChange={handlePortInputChange}
+                    onFocus={() => portInput.length > 0 && setShowPortDropdown(true)}
+                    onBlur={() => setTimeout(() => setShowPortDropdown(false), 200)}
                     className="w-full border p-3 rounded-lg mt-1"
-                    onChange={(e) =>
-                      setEnquiry({ ...enquiry, port: e.target.value })
-                    }
-                  >
-                    <option value="">Select Port</option>
-                    {ports.map((port) => (
-                      <option key={port._id} value={port.CITY}>
-                        {port.CITY} Port, {port.COUNTRY}
-                      </option>
-                    ))}
-                  </select>
+                    placeholder="Type to search port..."
+                  />
+                  {showPortDropdown && filteredPorts.length > 0 && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                      {filteredPorts.map((port) => (
+                        <div
+                          key={port._id}
+                          className="p-2 hover:bg-gray-100 cursor-pointer"
+                          onMouseDown={() => handlePortSelect(port)}
+                        >
+                          {port.CITY} Port, {port.COUNTRY}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <input
+                    type="hidden"
+                    name="port"
+                    value={enquiry.port}
+                    required
+                  />
                 </div>
               </div>
 

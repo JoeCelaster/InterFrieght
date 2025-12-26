@@ -89,15 +89,13 @@ const Body = () => {
 
                     {/* For Mobile */}
 
-                    <div className='sm:hidden text-5xl mt-16 flex flex-col items-center justify-center relative p-20 w-screen  text-white z-10 gap-5'>
+                    <div className='sm:hidden text-5xl items-center flex flex-col justify-center h-screen relative p-20 w-screen  text-white z-10 gap-5'>
                         <h1 className='text-5xl text-center'>Welcome to</h1>
                         <h1>IFF</h1>
                         <h3 className='text-lg text-center '>A Comprehensive logistics company, Carrying out the Freight Forwarding Business.</h3>
                         <div className='flex flex-row'>
-                            <Link to='/signup'><button className="flex items-center gap-1 px-5 py-2 whitespace-nowrap text-white text-base tracking-wide uppercase font-medium rounded-md transition duration-500 bg-[#008dff] shadow-[0_0_25px_#008cff] hover:shadow-[0_0_5px_#00ffff,0_0_25px_#00c8ff,0_0_50px_#008cff,0_0_100px_#008cff]">
-      Enquire Now
-      <ArrowUpRight className="w-6 h-6 font-light" />
-    </button></Link>
+                            <Link to='/enquiry'><button className="flex items-center gap-1 px-5 py-2 whitespace-nowrap text-white text-base tracking-wide uppercase font-medium rounded-md transition duration-500 bg-[#008dff] shadow-[0_0_25px_#008cff] hover:shadow-[0_0_5px_#00ffff,0_0_25px_#00c8ff,0_0_50px_#008cff,0_0_100px_#008cff]">Enquire Now
+      <ArrowUpRight className="w-6 h-6 font-light" /></button></Link>
                         </div>  
                     </div>
                 </div>

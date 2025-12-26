@@ -54,8 +54,8 @@ const Home = () => {
           <div className="font-serif font-thin text-xl text-white">
             <h2>Inter Freight Forwarders</h2>
           </div>
-          <div>cd
-            <button className='text-white text-2xl tracking-wide' onClick={handleDropDown}>≣</button>
+          <div>
+            <button className='text-white text-4xl tracking-wide' onClick={handleDropDown}>≣</button>
           </div>
         </div> 
         
