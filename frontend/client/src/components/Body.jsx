@@ -1,15 +1,15 @@
 import React from 'react';
 import img1 from '../assets/body-1.jpg'
-import hero from '../assets/hero-image.png'
+// import hero from '../assets/hero-image.png'
 import air from '../assets/flight.png'
 import logi from '../assets/logi.png'
 import land from '../assets/land.png'
 import sea from '../assets/sea.png'
 // import gml from '../assets/gml.avif'
-import logo1 from '../assets/logoipsum-335.png'
-import logo2 from '../assets/logoipsum-343.png'
-import logo3 from '../assets/logoipsum-285.png'
-import logo4 from '../assets/logoipsum-388.png'
+// import logo1 from '../assets/logoipsum-335.png'
+// import logo2 from '../assets/logoipsum-343.png'
+// import logo3 from '../assets/logoipsum-285.png'
+// import logo4 from '../assets/logoipsum-388.png'
 
 import { Link } from 'react-router-dom';
 // import footer from '../assets/footer.png'
@@ -20,7 +20,7 @@ import { ArrowUpRight } from 'lucide-react';
 import Chatbot from './Chatbot';
 // import blueback from '../assets/blue-back.png'
 
-import heroship from '../assets/hero-ship.mp4'
+// import heroship from '../assets/hero-ship.mp4'
 
 import numberOne from '../assets/image-1.png'
 import numberTwo from '../assets/image-2.png'
@@ -29,7 +29,7 @@ import numberFour from '../assets/image-4.png'
 import { useState } from 'react';
 
 const Body = () => {
-    const logos = [logo1,logo2,logo3,logo4,logo1,logo2,logo3,logo4,logo1,logo2,logo3,logo4]
+    // const logos = [logo1,logo2,logo3,logo4,logo1,logo2,logo3,logo4,logo1,logo2,logo3,logo4]
     const [loading,setLoading] = useState(false)
     return (
         <div className='font-serif bg-white'>
