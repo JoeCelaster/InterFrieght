@@ -124,7 +124,7 @@ const handleSubmit = async (e) => {
       </h1>
       <h2 className='text-[10.5px] text-gray-300 font-thin text-center tracking-wider mb-8'>- Fast response from our logistics team.</h2> 
 
-      <div className="w-full max-w-6xl border-2 border-black bg-white shadow-xl rounded-2xl p-3"> 
+      <div className="w-full max-w-6xl border-2 border-black bg-white shadow-xl rounded-2xl p-5 sm:p-10"> 
 
         {/* 2 Column layout */}
         <form onSubmit={handleSubmit}>
