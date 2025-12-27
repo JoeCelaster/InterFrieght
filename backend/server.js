@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const axios = require('axios');
+const { Resend } = require('resend').default || require('resend');
 const { MongoClient } = require('mongodb'); // <-- added
 
 const userRoutes = require('./routes/UserRoutes');
@@ -24,7 +25,8 @@ app.use(cors({
     // Allow requests with or without trailing slash
     const allowedOrigins = [
       'https://www.interfreight.in',
-      'https://www.interfreight.in/'
+      'https://www.interfreight.in/',
+      'http://localhost:5173'
     ];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -94,34 +96,24 @@ app.get('/ports', async (req, res) => {
 
 
 app.post('/sendmail', async (req, res) => {
-  const {
-    co,
-    port,
-    commodity,
-    cargoUnit,
-    packages,
-    dimensions,
-    transport,
-    shipment,
-    contact,
-    email,
-    organization
-  } = req.body;
+  try {
+    const {
+      co,
+      port,
+      commodity,
+      cargoUnit,
+      packages,
+      dimensions,
+      transport,
+      shipment,
+      contact,
+      email,
+      organization
+    } = req.body;
 
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "joecelaster2006@gmail.com",
-      pass: "rtxf gdlz lnrn zych"
-    }
-  });
 
-  let mailOptions = {
-    from: '"Website Enquiry" <joecelaster2006@gmail.com>',  // always your mail
-    to: "interfreight.forwarders@gmail.com",
-    replyTo: email,  // reply goes to user
-    subject: `New Enquiry from ${organization}`,
-    html: `
+    // Create a more detailed email template
+    const emailHtml = `
       <h2>New Logistics Enquiry</h2>
       <p><strong>Organization:</strong> ${organization}</p>
       <p><strong>Contact Email:</strong> ${email}</p>
@@ -137,13 +129,41 @@ app.post('/sendmail', async (req, res) => {
       <p><strong>Dimensions:</strong> ${dimensions}</p>
       <p><strong>Transport Mode:</strong> ${transport}</p>
       <p><strong>Shipment Type:</strong> ${shipment}</p>
-    `
-  };
+    `;
 
-  transporter.sendMail(mailOptions, (err, result) => {
-    if (err) return res.status(500).send({ error: err });
-    return res.send({ success: true });
-  });
+
+    const transporter = nodemailer.createTransport({
+  host: "smtp.resend.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: "resend",
+    pass: process.env.RESEND_API_KEY,
+  },
+});
+
+await transporter.sendMail({
+  from: "Interfreight Enquiry <noreply@interfreight.in>",
+  to: "interfreight.forwarders@gmail.com",
+  subject: `New Enquiry from ${contact || 'a customer'}`,
+  html: emailHtml,
+});
+
+  console.log('Email sent successfully:');
+  return res.status(200).json({ 
+    success: true, 
+    message: 'Enquiry submitted successfully',
+      // data: data
+    });
+
+  } catch (error) {
+    console.error('Error in /sendmail endpoint:', error);
+    return res.status(500).json({ 
+      success: false, 
+      error: 'Internal server error',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
 });
 
 

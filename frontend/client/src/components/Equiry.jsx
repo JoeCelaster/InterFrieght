@@ -6,6 +6,7 @@ const Enquire = () => {
   const [country, setCountry] = useState([]);
   const [ports, setPorts] = useState([]);
   const [popUp, setPopUp] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [L, setL] = useState("");
   const [B, setB] = useState("");
   const [H, setH] = useState("");
@@ -33,19 +34,22 @@ const Enquire = () => {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  setIsLoading(true);
   try {
     const updatedEnquiry = {
       ...enquiry,
       dimensions: `${L} × ${B} × ${H}`
     };
-    console.log('Sending enquiry:', updatedEnquiry); // For debugging
+    console.log('Sending enquiry:', updatedEnquiry);
     setEnquiry(updatedEnquiry);
     const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/sendmail`, updatedEnquiry);
-    console.log('Response:', response.data); // For debugging
+    console.log('Response:', response.data);
     setPopUp(true);
   } catch (error) {
     console.error('Error submitting enquiry:', error);
-    // Handle error (e.g., show error message to user)
+    // You might want to show an error message to the user here
+  } finally {
+    setIsLoading(false);
   }
 };
 
@@ -373,8 +377,24 @@ const handleSubmit = async (e) => {
 
           {/* Submit Button */}
           <div className="mt-10 text-center">
-            <button className="bg-blue-500 hover:bg-blue-600 transform duration-200 text-white text-lg px-10 py-3 rounded-xl shadow-lg">
-              Submit Enquiry
+            <button 
+              type="submit"
+              disabled={isLoading}
+              className={`bg-blue-500 hover:bg-blue-600 transform duration-200 text-white text-lg px-10 py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 mx-auto min-w-[180px] ${
+                isLoading ? 'opacity-75 cursor-not-allowed' : ''
+              }`}
+            >
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Sending...
+                </>
+              ) : (
+                'Submit Enquiry'
+              )}
             </button>
           </div>
         </form>
