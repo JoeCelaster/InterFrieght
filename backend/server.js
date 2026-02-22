@@ -132,24 +132,52 @@ app.post('/sendmail', async (req, res) => {
     `;
 
 
+    // Configure transporter with timeout and better error handling
     const transporter = nodemailer.createTransport({
-  host: "smtp.resend.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: "resend",
-    pass: process.env.RESEND_API_KEY,
-  },
-});
+      host: "smtp.resend.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: "resend",
+        pass: process.env.RESEND_API_KEY,
+      },
+      connectionTimeout: 10000, // 10 seconds
+      socketTimeout: 30000,     // 30 seconds
+      greetingTimeout: 30000,   // 30 seconds
+      logger: true,            // Enable logging
+      debug: process.env.NODE_ENV !== 'production' // Enable debug in non-production
+    });
 
-await transporter.sendMail({
-  from: "Interfreight Enquiry <noreply@interfreight.in>",
-  to: "interfreight.forwarders@gmail.com",
-  subject: `New Enquiry from ${contact || 'a customer'}`,
-  html: emailHtml,
-});
+    // Verify connection configuration
+    await new Promise((resolve, reject) => {
+      transporter.verify(function(error, success) {
+        if (error) {
+          console.error('SMTP connection error:', error);
+          return reject(new Error('Failed to connect to email server'));
+        }
+        console.log('Server is ready to take our messages');
+        resolve();
+      });
+    });
 
-  console.log('Email sent successfully:');
+    // Send email with timeout
+    const mailOptions = {
+      from: "Interfreight Enquiry <noreply@interfreight.in>",
+      to: "interfreight.forwarders@gmail.com",
+      subject: `New Enquiry from ${contact || 'a customer'}`,
+      html: emailHtml,
+    };
+
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Error sending email:', error);
+          return reject(error);
+        }
+        console.log('Email sent successfully:', info.messageId);
+        resolve();
+      });
+    });
   return res.status(200).json({ 
     success: true, 
     message: 'Enquiry submitted successfully',

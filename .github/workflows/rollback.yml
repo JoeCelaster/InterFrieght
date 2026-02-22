@@ -1,0 +1,17 @@
+name: Rollback
+
+on:
+  workflow_dispatch:
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set execute permissions
+        run: chmod +x scripts/*.sh
+
+      - name: Rollback
+        run: bash scripts/rollback.sh

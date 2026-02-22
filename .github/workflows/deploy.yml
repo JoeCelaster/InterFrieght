@@ -1,0 +1,24 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set execute permissions
+        run: chmod +x scripts/*.sh
+
+      # Optional gated migration step (CLI can remove this block if none)
+
+      - name: Deploy
+        run: bash scripts/deploy.sh
+
+      - name: Health check
+        run: bash scripts/health-check.sh
