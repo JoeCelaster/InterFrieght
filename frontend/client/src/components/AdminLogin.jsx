@@ -31,16 +31,16 @@ const AdminLogin = () => {
     }
 
     return (
-        <div className='flex flex-col items-center font-serif justify-evenly min-h-screen bg-blue-500 px-4'>
-            <div className={`flex flex-col  tracking-wider items-center font-serif text-white text-[25px] justify-evenly min-h-screen bg-blue-500 bg-opacity-85 px-4 ${Loading ? 'block' : 'hidden'} z-10 fixed top-0 left-0 right-0 bottom-0`}>
+        <div className='flex flex-col items-center font-sans justify-evenly min-h-screen bg-blue-500 px-4'>
+            <div className={`flex flex-col  tracking-wider items-center font-sans text-white text-[25px] justify-evenly min-h-screen bg-blue-500 bg-opacity-85 px-4 ${Loading ? 'block' : 'hidden'} z-10 fixed top-0 left-0 right-0 bottom-0`}>
                 {Loading ? <h1>Loading...</h1> : null}
             </div>
             <div>
-                <h1 className='text-4xl text-white font-serif tracking-normal text-center mb-2'>ADMIN</h1>
-                <h1 className='text-3xl text-white font-serif tracking-normal text-center'>Inter Freight Forwarders</h1>
+                <h1 className='text-4xl text-white font-sans tracking-normal text-center mb-2'>ADMIN</h1>
+                <Link to="/" className='text-3xl text-white font-sans tracking-normal text-center hover:text-gray-200 transition-colors'>Inter Freight Forwarders</Link>
             </div>
             <div className='w-full max-w-md space-y-8 border-solid border-2 p-5 border-black inline-block bg-white rounded-xl shadow-2xl'>
-                        <div className='flex-row space-y-2 font-serif'>
+                        <div className='flex-row space-y-2 font-sans'>
                         <h2 className='text-center font-light text-3xl '>Welcome Again !</h2>
                         </div>
                         <hr />

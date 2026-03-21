@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Home from './Home';
 
 const Enquire = () => {
   const [country, setCountry] = useState([]);
@@ -10,6 +11,7 @@ const Enquire = () => {
   const [L, setL] = useState("");
   const [B, setB] = useState("");
   const [H, setH] = useState("");
+  const [dropped, setDropped] = useState(false);
 
   const [enquiry, setEnquiry] = useState({
     co: "",
@@ -32,7 +34,11 @@ const Enquire = () => {
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [filteredPorts, setFilteredPorts] = useState([]);
 
-const handleSubmit = async (e) => {
+  const handleDropDown = () => {
+    setDropped(!dropped);
+  };
+
+  const handleSubmit = async (e) => {
   e.preventDefault();
   setIsLoading(true);
   try {
@@ -122,13 +128,62 @@ const handleSubmit = async (e) => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-blue-500 px-4 font-serif py-10">
-      <h1 className="text-4xl text-center text-white">
+    <>
+      {/* Navigation Bar */}
+      <nav className="hidden sm:block fixed top-0 left-0 w-full z-20 shadow-md transition-all duration-500 bg-blue-500 p-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-start font-sans font-light tracking-wide">
+          <Link to="/" className="text-xl text-white hover:text-gray-200 transition-colors">
+            <h2>Inter Freight Forwarders</h2>
+          </Link>
+          <ul className="list-none flex gap-8 text-white font-medium ml-auto">
+            <Link to='/' className="relative inline-block cursor-pointer after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-400 after:transition-all after:duration-300 hover:after:w-full">Home</Link>
+            <a href="#footer" onClick={e => { e.preventDefault(); document.getElementById('footer').scrollIntoView({ behavior: 'smooth' }); }} className="relative inline-block cursor-pointer after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-400 after:transition-all after:duration-300 hover:after:w-full">Contact us</a>
+            <Link to='/login' className="relative inline-block cursor-pointer after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-400 after:transition-all after:duration-300 hover:after:w-full">Login</Link>
+            <Link to='/adminlogin' className="relative inline-block cursor-pointer after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-400 after:transition-all after:duration-300 hover:after:w-full">Admin</Link>
+          </ul>
+        </div>
+      </nav>
+
+      {/* Mobile Navigation */}
+      <nav className={`sm:hidden fixed top-0 left-0 w-full shadow-md transition-all duration-500 z-20 ${dropped ? "flex flex-col gap-6" : "none"} bg-blue-500 p-4`}>
+        <div className='flex flex-row items-center justify-between'>
+          <Link to="/" className="font-sans font-thin text-xl text-white hover:text-gray-200 transition-colors">
+            <h2>Inter Freight Forwarders</h2>
+          </Link>
+          <div>
+            <button className='text-white text-4xl tracking-wide' onClick={handleDropDown}>≣</button>
+          </div>
+        </div> 
+        
+        <div>
+          <ul className={`font-sans list-none flex flex-col justify-start transition-all duration-200 ease-in-out gap-3 text-white font-medium text-lg ml-auto ${dropped ? "opacity-100 max-h-96" : "gap-6 opacity-0 max-h-0 overflow-hidden" }`}>
+                <Link to='/' className="hover:text-gray-200 cursor-pointer">Home</Link><hr className='border-none bg-neutral-400 opacity-45 h-[0.5px]'/>
+                <a href="#footer" onClick={e => { e.preventDefault(); document.getElementById('footer').scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-gray-200 cursor-pointer">Contact us</a><hr className='border-none bg-neutral-400 opacity-45 h-[0.5px]'/>
+                <Link to='/login' className="hover:text-gray-200 cursor-pointer">Login</Link><hr className='border-none bg-neutral-400 opacity-45 h-[0.5px]'/>
+                <Link to='/signup' className="hover:text-gray-200 cursor-pointer">Signup</Link><hr className='border-none bg-neutral-400 opacity-45 h-[0.5px]'/>
+                <Link to='/adminlogin' className="hover:text-gray-200 cursor-pointer">Admin</Link>
+          </ul>
+        </div>
+      </nav>
+
+      {/* Main Content with margin for fixed navbar */}
+      <div className="min-h-screen flex flex-col items-center justify-center bg-blue-200 px-4 font-sans py-10 pt-20"
+      style={{
+        backgroundImage: `
+linear-gradient(rgba(128, 128, 128, 0.2) 1px, transparent 0.5px),
+                linear-gradient(90deg, rgba(128, 128, 128, 0.2) 1px, transparent 0.4px)
+                
+        `,
+        backgroundSize: '30px 30px'
+      }}>
+      <div className="backdrop-blur-sm bg-white/40 bg-opacity-70 rounded-3xl p-8 shadow-2xl mb-8">
+      <h1 className="text-4xl text-center text-gray-800">
         Shipment Enquiry
       </h1>
-      <h2 className='text-[10.5px] text-gray-300 font-thin text-center tracking-wider mb-8'>- Fast response from our logistics team.</h2> 
+      <h2 className='text-[10.5px] text-gray-600 font-normal text-center tracking-wider mb-0'>- Fast response from our logistics team.</h2> 
+      </div>
 
-      <div className="w-full max-w-6xl border-2 border-black bg-white shadow-xl rounded-2xl p-5 sm:p-10"> 
+      <div className="w-full max-w-6xl border-2 border-gray-200 bg-white/80 backdrop-blur-md shadow-2xl rounded-3xl p-5 sm:p-10"> 
 
         {/* 2 Column layout */}
         <form onSubmit={handleSubmit}>
@@ -138,7 +193,7 @@ const handleSubmit = async (e) => {
             <div className="space-y-8">
 
               {/* Origin Details */}
-              <div className="bg-gray-50 border-gray-400 border-2 p-6 rounded-xl space-y-4">
+              <div className="bg-white/70 backdrop-blur-sm border-gray-200 border-2 p-6 rounded-xl space-y-4 shadow-lg">
                 <h3 className="text-2xl text-gray-800 underline">
                   Origin Details
                 </h3> <hr />
@@ -211,7 +266,7 @@ const handleSubmit = async (e) => {
               </div>
 
               {/* Cargo Details */}
-              <div className="bg-gray-50 p-6 rounded-xl border-gray-400 border-2 space-y-4">
+              <div className="bg-white/70 backdrop-blur-sm border-gray-200 border-2 p-6 rounded-xl space-y-4 shadow-lg">
                 <h3 className="text-2xl text-gray-800 underline">
                   Cargo Details
                 </h3> <hr className="text-black" />
@@ -284,7 +339,7 @@ const handleSubmit = async (e) => {
             <div className="space-y-8">
 
               {/* Transport Details */}
-              <div className="bg-gray-50 p-6 rounded-xl border-gray-400 border-2 space-y-4">
+              <div className="bg-white/70 backdrop-blur-sm border-gray-200 border-2 p-6 rounded-xl space-y-4 shadow-lg">
                 <h3 className="text-2xl underline text-gray-800">
                   Transport Details
                 </h3><hr />
@@ -337,7 +392,7 @@ const handleSubmit = async (e) => {
               </div>
 
               {/* Company Details */}
-              <div className="bg-gray-50 p-6 rounded-xl border-gray-400 border-2 space-y-4">
+              <div className="bg-white/70 backdrop-blur-sm border-gray-200 border-2 p-6 rounded-xl space-y-4 shadow-lg">
                 <h3 className="text-2xl underline text-gray-800">
                   Company Details
                 </h3><hr />
@@ -429,7 +484,8 @@ const handleSubmit = async (e) => {
   </div>
 )}
 
-    </div>
+      </div>
+    </>
   );
 };
 
