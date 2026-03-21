@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"Hubot Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        hubot: ['"Hubot Sans"', 'sans-serif'],
       },
     },
   },

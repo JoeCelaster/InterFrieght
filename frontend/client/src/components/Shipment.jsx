@@ -76,10 +76,10 @@ const Shipment = () => {
     ];
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 py-8 px-2 font-serif">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 py-8 px-2 font-sans">
             <UserNavbar/>
             <h1 className="text-2xl font-light tracking-wide text-black mb-2 text-center mt-8 underline underline-offset-4 ">Upload your shipment details and required documents to get started quickly and securely.</h1>
-            <div className="w-full max-w-2xl bg-white rounded-md shadow-md border-2 border-gray-300 p-8 font-serif mt-8">
+            <div className="w-full max-w-2xl bg-white rounded-md shadow-md border-2 border-gray-300 p-8 font-sans mt-8">
                 <h1 className="text-4xl font-light tracking-wide text-black mb-2 text-center">Start a New Shipment</h1>
                 <p className="text-gray-500 text-center mb-8">Upload all required documents to begin your shipment process.</p>
                 <form onSubmit={handleSubmit}>

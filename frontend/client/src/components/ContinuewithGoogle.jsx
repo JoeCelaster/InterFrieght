@@ -3,7 +3,7 @@ import React from "react";
 export default function GoogleButton() {
   return (
     <button
-      className="max-w-[320px] w-full flex items-center tracking-wider font-thin font-serif justify-center gap-3 px-6 py-2 text-sm spacein text-center uppercase text-black  rbg-white rounded-xl border-2 border-black transition-all duration-500 ease-in-out sm:max-w-full"
+      className="max-w-[320px] w-full flex items-center tracking-wider font-thin font-sans justify-center gap-3 px-6 py-2 text-sm spacein text-center uppercase text-black  rbg-white rounded-xl border-2 border-black transition-all duration-500 ease-in-out sm:max-w-full"
     >
       <svg
         viewBox="0 0 256 262"

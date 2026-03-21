@@ -3,6 +3,18 @@
   100% { transform: translateX(-50%); }
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Hubot+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+
 .animate-slide {
   animation: slide 20s linear infinite;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Hubot Sans', sans-serif;
 }

@@ -32,9 +32,9 @@ const App = () => {
 
   if (appLoading) {
     return (
-      <div className={`flex flex-col gap-3 fixed top-0 left-0 w-full h-full bg-blue-500 items-center justify-center z-50 transition-opacity duration-1000`}>
+      <div className={`flex flex-col font-sans gap-3 fixed top-0 left-0 w-full h-full bg-blue-500 items-center justify-center z-50 transition-opacity duration-1000`}>
         <div>{<TruckLoader/>}</div>
-        <div className='text-center text-white font-serif text-xl tracking-wide'>Loading...</div>
+        <div className='text-center text-white font-sans text-xl tracking-wide'>Loading...</div>
       </div>
     );
   }

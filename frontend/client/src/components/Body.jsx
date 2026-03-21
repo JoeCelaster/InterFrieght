@@ -5,6 +5,7 @@ import air from '../assets/flight.png'
 import logi from '../assets/logi.png'
 import land from '../assets/land.png'
 import sea from '../assets/sea.png'
+import footer from '../assets/footer.png'
 // import gml from '../assets/gml.avif'
 // import logo1 from '../assets/logoipsum-335.png'
 // import logo2 from '../assets/logoipsum-343.png'
@@ -26,13 +27,20 @@ import numberOne from '../assets/image-1.png'
 import numberTwo from '../assets/image-2.png'
 import numberThree from '../assets/image-3.png'
 import numberFour from '../assets/image-4.png'
+import Button2 from './Button2';
 import { useState } from 'react';
 
 const Body = () => {
     // const logos = [logo1,logo2,logo3,logo4,logo1,logo2,logo3,logo4,logo1,logo2,logo3,logo4]
-    const [loading,setLoading] = useState(false)
+    const [loading,setLoading] = useState(false);
+
+    const phoneNumber = "919944475934";
+  const message = "Hello, I’d like to enquire about your services. Can you provide some details and pricing?";
+
+  const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
     return (
-        <div className='font-serif bg-white'>
+        <div className='font-sans bg-white'>
             
 
                 <div className='relative h-screen overflow-hidden'>
@@ -41,31 +49,20 @@ const Body = () => {
                         <img
                         src={nightport}
                         alt="Fallback"
-                        className={`absolute w-full h-full object-cover z-0 transition-opacity duration-1000 ${loading ? 'opacity-0' : 'opacity-100'}`}
+                        className={` absolute w-full h-full object-cover z-0 transition-opacity duration-1000 ${loading ? 'opacity-0' : 'opacity-100'}`}
                         />
 
-                        {/* Video with Fade-In */}
-                        <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        onCanPlayThrough={() => setLoading(true)}
-                        className={`absolute w-full h-full object-cover z-0 transition-opacity duration-1000 ${loading ? 'opacity-100' : 'opacity-0'}`}
-                        >
-                        <source src="/port-video.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                        </video>
+                        
                         {/* <img src={nightport} className='absolute z-0 w-full h-full object-cover' alt="" /> */}
-                        <div className="absolute top-0 left-0 w-full h-full  z-10 bg-black opacity-35"></div>
+                        <div className="absolute top-0 left-0 w-full h-full z-10 bg-black opacity-60"></div>
 
                     </div>
 
                     
 
                         <div className='block sm:hidden absolute h-[100vh] w-full '>
-                            <img src={img1} alt=""  className='absolute z-0 w-full h-full object-cover'/>
-                            <div className='absolute w-full h-full text-white opacity-60 bg-black'></div>
+                            <img src={footer} alt=""  className='absolute z-0 w-full h-full object-cover'/>
+                            <div className='absolute w-full h-full text-white opacity-70 bg-black'></div>
                         </div>
                  
 
@@ -81,10 +78,16 @@ const Body = () => {
                                 services, storage, delivery and Packing.</p>
                         </div>
 
-                        <div className='flex flex-row'>
+                        <div className='flex flex-row gap-6'>
         
                             <Link to='/enquiry'><Button/></Link>
-                        </div>                                                                                                                                                                                                                                                                              
+                            <a href={url} target="_blank" rel="noopener noreferrer">
+                            <Button2/>
+                            </a>
+                        </div>   
+
+                         <div>
+                        </div>                                                                                                                                                                                                                                                                  
                     </div>
 
                     {/* For Mobile */}
@@ -93,10 +96,12 @@ const Body = () => {
                         <h1 className='text-5xl text-center'>Welcome to</h1>
                         <h1>IFF</h1>
                         <h3 className='text-lg text-center '>A Comprehensive logistics company, Carrying out the Freight Forwarding Business.</h3>
-                        <div className='flex flex-row'>
-                            <Link to='/enquiry'><button className="flex items-center gap-1 px-5 py-2 whitespace-nowrap text-white text-base tracking-wide uppercase font-medium rounded-md transition duration-500 bg-[#008dff] shadow-[0_0_25px_#008cff] hover:shadow-[0_0_5px_#00ffff,0_0_25px_#00c8ff,0_0_50px_#008cff,0_0_100px_#008cff]">Enquire Now
-      <ArrowUpRight className="w-6 h-6 font-light" /></button></Link>
-                        </div>  
+                        <div className='flex flex-col gap-6'>
+                            <Link to='/enquiry'><Button/></Link>
+                            <a href={url} target="_blank" rel="noopener noreferrer">
+                            <Button2/>
+                            </a>
+                        </div>
                     </div>
                 </div>
             {/* <img src={hero} alt="" /> */}
@@ -105,15 +110,14 @@ const Body = () => {
 
             <div
                 id="about-section"
-                className="w-full bg-white"
+                className="w-full bg-blue-200"
                 style={{
-                    backgroundImage: `
-                    radial-gradient(#64b5f6 1.3px, transparent 1.3px),
-                    radial-gradient(#64b5f6 1.3px, transparent 1.3px)
-                    `,
-                    backgroundSize: '25px 25px',
-                    backgroundPosition: '0 0, 12.5px 12.5px'
-                }}
+                backgroundImage: `
+                linear-gradient(rgba(128, 128, 128, 0.2) 1px, transparent 0.5px),
+                linear-gradient(90deg, rgba(128, 128, 128, 0.2) 1px, transparent 0.4px)
+                `,
+                backgroundSize: '30px 30px'
+            }}
                 >
     
             
@@ -291,86 +295,60 @@ const Body = () => {
 
             </div>
 
-            <div className="relative  bg-[url('./assets/footer.png')] bg-cover bg-center bg-no-repeat text-white">
-      
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black opacity-80 z-10"></div>
-
+            <div id="footer" className="relative bg-blue-500 text-white"
+            style={{
+                backgroundImage: `
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+                `,
+                backgroundSize: '30px 30px'
+            }}>
             {/* Footer Content */}
-            <footer className="relative z-10 h-full flex flex-col justify-end px-6 py-10">
-                <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 text-sm">
+            <footer className="relative z-10 px-6 py-16">
+                <div className="max-w-4xl mx-auto text-center space-y-8">
+                    {/* Company Name */}
                     <div>
-                    <h3 className="font-semibold mb-3">Company</h3>
-                    <ul className="space-y-2">
-                        <li className='hover:underline'><span className="text-orange-400">→ </span><Link to="/about">About Us</Link></li>
+                        <h2 className="text-3xl font-bold mb-2">Inter Freight Forwarders</h2>
+                        <p className="text-gray-300">Your Trusted Global Freight Forwarder</p>
+                    </div>
+
+                    {/* Quote */}
+                    <div className="border-l-4 border-orange-400 pl-4 my-8">
+                        <p className="text-lg italic text-gray-200">"Excellence in logistics, delivered with precision and care. We bridge distances and connect businesses across the globe."</p>
+                    </div>
+
+                    {/* Contact Details */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center  text-center">
+                        <div>
+                            <h3 className="font-semibold mb-2 text-orange-400">Email</h3>
+                            <p className="text-gray-300">@interfreight.forwarders@gmail.com</p>
+                        </div>
+                        <div>
+                            <h3 className="font-semibold mb-2 text-orange-400">Phone</h3>
+                            <p className="text-gray-300">+91 99444 75934</p>
+                        </div>
                         
-                        <li>  <span className="text-orange-400">→ </span><Link to="/mission">Our Mission</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/team">Leadership Team</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/careers">Careers</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/testimonials">Testimonials</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/awards">Awards & Certifications</Link></li>
-                    </ul>
                     </div>
 
-                    <div>
-                    <h3 className="font-semibold mb-3">Services</h3>
-                    <ul className="space-y-2">
-                        <li><span className="text-orange-400">→ </span><Link to="/services/ocean-freight">Ocean Freight</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/services/air-freight">Air Freight</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/services/road-rail">Road & Rail Transport</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/services/customs">Customs Clearance</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/services/warehousing">Warehousing</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/services/project-cargo">Project Cargo</Link></li>
-                    </ul>
+                    {/* Social Links */}
+                    <div className="flex justify-center space-x-6 mt-8">
+                        <a href="https://wa.me/919944475934" target="_blank" className="text-green-400 hover:text-green-300 transition-colors flex items-center gap-2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                            WhatsApp
+                        </a>
+                        <a href="mailto:interfreight.forwarders@gmail.com" className="text-white hover:text-blue-300 transition-colors flex items-center gap-2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="m22 7-10 5L2 7"/>
+                            </svg>
+                            Email
+                        </a>
                     </div>
-
-                    <div>
-                    <h3 className="font-semibold mb-3">Industries</h3>
-                    <ul className="space-y-2">
-                        <li><span className="text-orange-400">→ </span><Link to="/industries/automotive">Automotive</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/industries/pharma">Pharmaceuticals</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/industries/electronics">Electronics</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/industries/retail">Retail & E-commerce</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/industries/fmcg">FMCG</Link></li>
-                    </ul>
-                    </div>
-
-                    <div>
-                    <h3 className="font-semibold mb-3">Resources</h3>
-                    <ul className="space-y-2">
-                        <li><span className="text-orange-400">→ </span><Link to="/tools">Shipping Tools</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/incoterms">Incoterms Guide</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/track">Container Tracking</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/blog">Blog & Insights</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/faq">FAQs</Link></li>
-                    </ul>
-                    </div>
-
-                    <div>
-                    <h3 className="font-semibold mb-3">Support</h3>
-                    <ul className="space-y-2">
-                        <li><span className="text-orange-400">→ </span><Link to="/contact">Contact Us</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/quote">Request a Quote</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/login">Customer Login</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/terms">Terms & Conditions</Link></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/privacy">Privacy Policy</Link></li>
-                    </ul>
-                    </div>
-
-                    <div>
-                    <h3 className="font-semibold mb-3">Connect</h3>
-                    <ul className="space-y-2">
-                        <li><span className="text-orange-400">→ </span><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
-                        <li><span className="text-orange-400">→ </span><a href="https://facebook.com" target="_blank">Facebook</a></li>
-                        <li><span className="text-orange-400">→ </span><a href="https://instagram.com" target="_blank">Instagram</a></li>
-                        <li><span className="text-orange-400">→ </span><a href="https://wa.me/1234567890" target="_blank">WhatsApp</a></li>
-                        <li><span className="text-orange-400">→ </span><Link to="/newsletter">Newsletter</Link></li>
-                    </ul>
-                    </div>
-
                 </div>
 
-                <div className="text-center text-gray-400 text-xs mt-10 border-t border-gray-700 pt-4">
+                <div className="text-center text-gray-300 text-xs mt-12 border-t border-gray-700 pt-4">
                     &copy; {new Date().getFullYear()} Inter Freight Forwarders Co. All rights reserved.
                 </div>
             </footer>
