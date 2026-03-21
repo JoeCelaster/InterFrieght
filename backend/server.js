@@ -6,8 +6,9 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const axios = require('axios');
-const { Resend } = require('resend').default || require('resend');
+// const { Resend } = require('resend').default || require('resend');
 const { MongoClient } = require('mongodb'); // <-- added
+const {Resend} = require('resend');
 
 const userRoutes = require('./routes/UserRoutes');
 const trackRoutes = require('./routes/TrackRoutes');
@@ -95,6 +96,8 @@ app.get('/ports', async (req, res) => {
 });
 
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 app.post('/sendmail', async (req, res) => {
   try {
     const {
@@ -111,14 +114,18 @@ app.post('/sendmail', async (req, res) => {
       organization
     } = req.body;
 
+    if (!email || !contact) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields'
+      });
+    }
 
-    // Create a more detailed email template
     const emailHtml = `
       <h2>New Logistics Enquiry</h2>
       <p><strong>Organization:</strong> ${organization}</p>
       <p><strong>Contact Email:</strong> ${email}</p>
       <p><strong>Contact Number:</strong> ${contact}</p>
-      <br/>
 
       <h3>Shipment Details</h3>
       <p><strong>Country of Origin:</strong> ${co}</p>
@@ -131,69 +138,34 @@ app.post('/sendmail', async (req, res) => {
       <p><strong>Shipment Type:</strong> ${shipment}</p>
     `;
 
-
-    // Configure transporter with timeout and better error handling
-    const transporter = nodemailer.createTransport({
-      host: "smtp.resend.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: "resend",
-        pass: process.env.RESEND_API_KEY,
-      },
-      connectionTimeout: 10000, // 10 seconds
-      socketTimeout: 30000,     // 30 seconds
-      greetingTimeout: 30000,   // 30 seconds
-      logger: true,            // Enable logging
-      debug: process.env.NODE_ENV !== 'production' // Enable debug in non-production
-    });
-
-    // Verify connection configuration
-    await new Promise((resolve, reject) => {
-      transporter.verify(function(error, success) {
-        if (error) {
-          console.error('SMTP connection error:', error);
-          return reject(new Error('Failed to connect to email server'));
-        }
-        console.log('Server is ready to take our messages');
-        resolve();
-      });
-    });
-
-    // Send email with timeout
-    const mailOptions = {
-      from: "Interfreight Enquiry <noreply@interfreight.in>",
-      to: "interfreight.forwarders@gmail.com",
-      subject: `New Enquiry from ${contact || 'a customer'}`,
+    const sender = await resend.emails.send({
+      from: 'noreply@interfreight.in', 
+      to: 'interfreight.forwarders@gmail.com',
+      subject: 'New Logistics Enquiry',
       html: emailHtml,
-    };
-
-    await new Promise((resolve, reject) => {
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.error('Error sending email:', error);
-          return reject(error);
-        }
-        console.log('Email sent successfully:', info.messageId);
-        resolve();
-      });
     });
-  return res.status(200).json({ 
-    success: true, 
-    message: 'Enquiry submitted successfully',
-      // data: data
+
+    if (sender.error) {
+      return res.status(500).json({
+        success: false,
+        error: 'Failed to send email',
+        details: sender.error
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Email sent successfully'
     });
 
   } catch (error) {
-    console.error('Error in /sendmail endpoint:', error);
-    return res.status(500).json({ 
-      success: false, 
-      error: 'Internal server error',
-      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    console.error('Error:', error);
+    return res.status(400).json({
+      success: false,
+      error: error.message
     });
   }
 });
-
 
 app.post("/chat", async (req, res) => {
   try {
