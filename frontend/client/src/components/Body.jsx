@@ -321,7 +321,7 @@ const Body = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center  text-center">
                         <div>
                             <h3 className="font-semibold mb-2 text-orange-400">Email</h3>
-                            <p className="text-gray-300">@interfreight.forwarders@gmail.com</p>
+                            <p className="text-gray-300">interfreight.forwarders@gmail.com</p>
                         </div>
                         <div>
                             <h3 className="font-semibold mb-2 text-orange-400">Phone</h3>
